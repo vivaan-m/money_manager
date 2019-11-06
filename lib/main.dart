@@ -5,6 +5,7 @@ import 'package:money_manager/SettingsPage.dart';
 import 'package:money_manager/Utils/Colors.dart';
 import 'package:money_manager/Utils/Colors.dart' as prefix0;
 import 'package:money_manager/Widgets/Widgets.dart';
+import 'package:money_manager/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Money Manager',
-      home: MyHomePage(title: 'Money Manager'),
+      home: SplashScreen(),
     );
   }
 }
@@ -75,17 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: InkWell(onTap: navShift(context, SettingsPage()),child: Icon(Icons.settings,color: black(),)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                widget.title,
-                style: TextStyle(color: black(), fontSize: 18),
-              ),
-            ),
-            Text(
-              "Manage Your Money Smartly",
-              style: TextStyle(color: blackLess(), fontSize: 12),
-            ),
+            Hero(tag: "Logo",child: Image.asset("Assets/Images/money.jpg")),
             SizedBox(
               height: 40,
             ),

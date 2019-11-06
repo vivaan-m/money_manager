@@ -34,8 +34,31 @@ class _SettingsPageState extends State<SettingsPage> {
     getPref();
   }
 
+  Widget checkWhich(){
+    if(_taxvalue.toInt()+_wantsvalue.toInt()+_needsvalue.toInt()<=100.0){
+    if(_taxvalue>50){
+      return  Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Visibility(visible:true,child: Text("Saving More Than 50% Of Your Income\nWe Are Proud Of You!!\nPersonal Advice Start Investing SomeWhere But Be A Wise ;)",textAlign: TextAlign.center,style: TextStyle(color: green(),fontWeight: FontWeight.bold,fontSize: 14),)),
+      );
+    }else if(_needsvalue>50){
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Visibility(visible:true,child: Text("Your Needs Are More Than 50% Of Your Income\nNot so Good!!\nPersonal Advice Filter Your Needs To Keep Them Low Or You Will Stay Broke :(",textAlign: TextAlign.center,style: TextStyle(color:red(),fontWeight: FontWeight.bold,fontSize: 12),)),
+      );
+    }else if(_wantsvalue>50){
+      return  Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Visibility(visible:true,child: Text("Your Wants Are More Than 50% Of Your Income\nYou Want to Be Rich Or Just Want To Feel Rich!!\nPersonal Advice You Should Be Spending 25% - 30% Of Your Income On Your Wants ",textAlign: TextAlign.center,style: TextStyle(color: red(),fontWeight: FontWeight.bold,fontSize: 12),)),
+      );
+    }else{
+      return SizedBox();
+    }}else{
+      return SizedBox();}
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: white(),
       body: SafeArea(
@@ -85,6 +108,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         onChanged: (double newValue) {
                           setState(() {
                             _taxvalue = newValue;
+                            success = false;
+                            error = false;
                           });
                         },
                         min: 0.0,
@@ -117,6 +142,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         onChanged: (double newValue) {
                           setState(() {
                             _needsvalue = newValue;
+                            success = false;
+                            error = false;
                           });
                         },
                         min: 0.0,
@@ -149,6 +176,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         onChanged: (double newValue) {
                           setState(() {
                             _wantsvalue = newValue;
+                            success = false;
+                            error = false;
                           });
                         },
                         min: 0.0,
@@ -157,9 +186,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ],
                 ),
+                checkWhich(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Visibility(visible:true,child: Text("Total Percentage : ${_taxvalue.toInt()+_wantsvalue.toInt()+_needsvalue.toInt()}",textAlign: TextAlign.center,style: TextStyle(color: _taxvalue.toInt()+_wantsvalue.toInt()+_needsvalue.toInt()<=100?blue():red()),)),
+                  child: Visibility(visible:true,child: Text("Total Percentage : ${_taxvalue.toInt()+_wantsvalue.toInt()+_needsvalue.toInt()}%",textAlign: TextAlign.center,style: TextStyle(color: _taxvalue.toInt()+_wantsvalue.toInt()+_needsvalue.toInt()<=100?blue():red()),)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -185,6 +215,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   });}else{
                     setState(() {
                       error = true;
+                      success = false;
                     });
                   }
                 })
